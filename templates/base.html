@@ -1,0 +1,323 @@
+{% include "header.html" %} {%if "classes" in request.path %}
+<header
+  class="masthead"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80');
+  "
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Classes</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- flash message -->
+<div>
+  {% for message in get_flashed_messages() %}
+  <div
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+    style="text-align: center"
+  >
+    {{message}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {%endfor%}
+</div>
+<!-- flash message -->
+{%elif "ptsession" in request.path or request.path == "/ptCalendar"%}
+<header
+  class="masthead"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80');
+  "
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>PT Sessions</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- flash message -->
+<div>
+  {% for message in get_flashed_messages() %}
+  <div
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+    style="text-align: center"
+  >
+    {{message}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {%endfor%}
+</div>
+<!-- flash message -->
+{%elif "membership" in request.path %}
+<header
+  class="masthead"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1556742212-5b321f3c261b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80');
+  "
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Membership</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{%elif "myProfile" in request.path %}
+<header
+  class="masthead"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80');
+  "
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Members Centre</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- flash message -->
+<div>
+  {% for message in get_flashed_messages() %}
+  <div
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+    style="text-align: center"
+  >
+    {{message}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {%endfor%}
+</div>
+<!-- flash message -->
+{%elif "myBooking" in request.path %}
+<header
+  class="masthead"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80');
+  "
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Members Centre</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{%elif "myMessage" in request.path %}
+<header
+  class="masthead"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1517130038641-a774d04afb3c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80');
+  "
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Members Centre</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{%else%}
+<header
+  class="masthead"
+  style="
+    background-image: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80');
+  "
+>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Lincoln Fitness</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- home page  -->
+<!-- flash message -->
+<div>
+  {% for message in get_flashed_messages() %}
+  <div
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+    style="text-align: center"
+  >
+    {{message}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {%endfor%}
+</div>
+<!-- flash message -->
+<section class="content">
+  <div class="container">
+    <div class="row">
+      <h1>Welcome | Haere mai</h1>
+    </div>
+    <br />
+    <div class="row">
+      <p>Welcome to Lincoln Fitness, Canterbury's premier gym.</p>
+
+      <p>
+        We offer group fitness classes developed and taught by highly qualified
+        instructors. Every class is booked in advance and complimentary for
+        members.
+      </p>
+
+      <p>
+        Lincoln Fitness also offers a team of dedicated personal trainers who
+        can tailor a fitness plan to your goals.
+      </p>
+
+      <p>We're excited to support your fitness journey!</p>
+      <br />
+    </div>
+    <hr />
+    <div class="row">
+      <h1>Hours</h1>
+    </div>
+    <br />
+    <div class="row">
+      <h4>6am to 9pm, seven days a week</h4>
+    </div>
+    <br />
+
+    <div class="row">
+      <p>*Hours may vary on public holidays.</p>
+      <br />
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col">
+        <a class="nav-link" href="{{ url_for('classes') }}">
+          <div class="card text-bg-dark">
+            <img
+              src="/static/image/classCard.jpg"
+              class="card-img"
+              alt="classes"
+              style="opacity: 0.5"
+            />
+            <div class="card-img-overlay card-heading">
+              <h5 class="card-title card-heading">Classes</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col">
+        <a class="nav-link" href="{{ url_for('ptsession') }}">
+          <div class="card text-bg-dark">
+            <img
+              src="/static/image/PTsessionCard.jpg"
+              class="card-img"
+              alt="sessions"
+              style="opacity: 0.5"
+            />
+            <div class="card-img-overlay card-heading">
+              <h5 class="card-title card-heading">Personal Training</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col">
+        <a class="nav-link" href="{{ url_for('membership') }}">
+          <div class="card text-bg-dark">
+            <img
+              src="/static/image/membershipCard.jpg"
+              class="card-img"
+              alt="membership"
+              style="opacity: 0.5"
+            />
+            <div class="card-img-overlay card-heading">
+              <h5 class="card-title card-heading">Membership</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- home page  -->
+{%endif%}
+<section class="content">
+  <div class="container">
+<!-- Zhiyi Flash-->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      {% for category, message in messages %}
+          {% if category == "successBooked" %}
+              <div class="alert alert-success">{{ message }}</div>
+          {% elif category == "successCancelled" %}
+              <div class="alert alert-success">{{ message }}</div>
+          {% elif category == "error" %}
+          <div class="alert alert-danger">{{ message }}</div>
+          {% elif category == "errorbook" %}
+          <div class="alert alert-danger">{{ message }}</div>
+          {% elif category == "cancelSubSuccess" %}
+          <div class="alert alert-success">{{ message }}</div>
+          {% elif category == "ReActSuccess" %}
+          <div class="alert alert-success">{{ message }}</div>
+          {% elif category == "ContactManager" %}
+          <div class="alert alert-danger">{{ message }}</div>
+          {% endif %}
+
+      {% endfor %}
+  {% endif %}
+{% endwith %}
+<!-- Zhiyi Flash-->
+    <div>{% block content %}{% endblock %}</div>
+  </div>
+</section>
+{% include "footer.html" %}

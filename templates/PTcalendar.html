@@ -1,0 +1,172 @@
+{% extends "base.html" %} {% block content %}
+<style>
+
+    td{
+      transition: all 0.3s linear 0s;
+      border-radius:0.25em
+    }
+  
+    td:hover {
+  
+      transform: scale(1.2)
+      
+    };
+  
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background-color: #fff;
+    }
+    
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background-color: #fff;
+    }
+
+
+    .nestedTable{
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <form action="/ptCalendar" >
+    <div class="row g-3">
+    <div class="col-auto">
+      <label for="dateStart "class="col-form-label" >Choose Date :</label>  
+    </div>  
+    <div class="col-auto"> 
+      <input  type="date" name="dateChosen"  class="form-control "  id="dateChosen" value="{{dateChosen}}" min="{{Today}}" max="{{maxdate}}"  >
+    </div>
+    <div class="col-auto">
+      <button  type="submit" class="btn btn-primary ">Filter</button>
+    </div>
+  </form>
+
+    <div class="col-auto ml-auto">
+    <a href="/ptsession" type="button" class='btn btn-primary'>
+      Filter by Trainer
+    </a>
+    </div>
+ 
+
+  
+  <div class="row" >
+    <table class="table text-center table-light" >
+      <thead>
+        <tr >
+          {%for date in dbresultDate%}            
+           <th scope="col" class="border p-2 bg-dark text-white " >{{date}}</th> 
+          {%endfor%}
+         </tr>
+          <tr >
+         {%for col in dbcols%}            
+          <th scope="col" class="border sticky-header" >{{col}}</th> 
+         {%endfor%}
+        </tr>
+  
+      </thead>
+      <tbody>
+        
+          
+          {%for result in dbresult%}
+          <tr>
+            {%for value in result%}
+            <!-- 变量不是list格式 且变量不是空-->
+              {%if value is not iterable and value is not none%}
+              <th scope="row" class="border noneStyleButton">{{value}}</th>
+              {% else %}
+                {%if value is not none %}
+                {% if value|length == 2  %}
+             
+                <th class="border no-hover" >
+                  <table id="nestedTable">
+               {%for item in value%} 
+
+                  <tr>
+                    <td  style="background-color:
+    
+                    {%if item[3]=='5000'%}#000000 
+                    {%elif item[3]=='5001'%}#D10000 
+                    {%elif item[3]=='5002'%}#C700C7
+                    {%elif item[3]=='5003'%}#9370db
+                    {%elif item[3]=='5004'%}#4F4FFF
+                    {%elif item[3]=='5005'%}#00E0E0
+                    {%elif item[3]=='5006'%}#696969
+                    {%elif item[3]=='5007'%}#008000
+                    {%elif item[3]=='5008'%}#FFA600
+                    {%elif item[3]=='5009'%}#800080
+                    {%endif%}
+                  ;color:white" >
+  
+                <form action="/classes/addClasses/process" method='POST'>
+          
+                                    <button type="submit" name="ClassID" Class="noneStyleButton" value="{{item[0]}}">
+                                      <input type="hidden" name="WaitForProcess" value='1'>
+                                      <input type="hidden" name="ptsessionbook" value='yes'>
+                                      <input type="hidden" name="BookedClassDetails" value="2">              
+                                      <h6>{{item[1]}}</h6>
+                                      <small>{{item[2]}}</small>
+                                      <div><small {%if item[-2]|int >0 %}class="text-white">{{item[-2]}} Available</small>{%else%}<small><bold>Fully booked</bold></small>{%endif%}
+                                        <small>/{{item[-1]}}</small></div>
+                                    </button>
+                          
+              </form>
+            </th>
+            </tr>
+           
+              {%endfor%}
+            </table>  
+              <td>
+               
+
+                  
+                
+                {%else%}
+
+                  <td class="border hover " style="background-color:
+    
+                    {%if value[3]=='5000'%}#000000 
+                    {%elif value[3]=='5001'%}#D10000 
+                    {%elif value[3]=='5002'%}#C700C7
+                    {%elif value[3]=='5003'%}#9370db
+                    {%elif value[3]=='5004'%}#4F4FFF
+                    {%elif value[3]=='5005'%}#00E0E0
+                    {%elif value[3]=='5006'%}#696969
+                    {%elif value[3]=='5007'%}#008000
+                    {%elif value[3]=='5008'%}#FFA600
+                    {%elif value[3]=='5009'%}#800080
+                    {%endif%}
+                  ;color:white " >
+                  <form action="/classes/addClasses/process" method='POST'>
+                                      <button type="submit" name="ClassID" Class="noneStyleButton" value="{{value[0]}}">
+                                        <input type="hidden" name="WaitForProcess" value='1'>
+                                        <input type="hidden" name="ptsessionbook" value='yes'>
+                                        <input type="hidden" name="BookedClassDetails" value="2">              
+                                        <h6>{{value[1]}}</h6>
+                                        <small>{{value[2]}}</small>
+                                        <div><small {%if value[-2]|int >0 %}class="text-white">{{value[-2]}} Available</small>{%else%}<small>Fully booked</small>{%endif%}
+                                          <small>/{{value[-1]}}</small></div>
+                                      </button>
+                  </form>   
+                  </td>
+                  {% endif %}
+
+
+                {%else%} 
+                <th class="border "></th>
+                {%endif%}  
+              {%endif%}    
+            {%endfor%}
+        
+          </tr>
+          {%endfor%}
+        
+      </tbody>
+    </table>
+  </div>
+
+
+  {% endblock %}

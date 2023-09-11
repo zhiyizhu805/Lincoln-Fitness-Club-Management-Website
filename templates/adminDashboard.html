@@ -1,0 +1,71 @@
+{% extends "admin.html" %} {% block content %}
+
+<section class="content">
+  <div class="container" style="margin: 20px 10px">
+    <div style="margin-top: 30%">
+      <div class="row">
+        <div class="col-md-3">
+          <a class="nav-link" href="{{ url_for('MemberList') }}">
+            <div class="card text-bg-dark">
+              <img
+                src="/static/image/classCard.jpg"
+                class="card-img"
+                alt="classes"
+                style="opacity: 0.5"
+              />
+              <div class="card-img-overlay card-heading">
+                <h5 class="card-title" style="margin: auto">Member List</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a class="nav-link" href="{{ url_for('manageTrainer') }}">
+            <div class="card text-bg-dark">
+              <img
+                src="/static/image/PTsessionCard.jpg"
+                class="card-img"
+                alt="sessions"
+                style="opacity: 0.5"
+              />
+              <div class="card-img-overlay card-heading">
+                <h5 class="card-title">Trainer List</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a class="nav-link" href="{{ url_for('financialreport') }}">
+            <div class="card text-bg-dark">
+              <img
+                src="/static/image/membershipCard.jpg"
+                class="card-img"
+                alt="membership"
+                style="opacity: 0.5"
+              />
+              <div class="card-img-overlay card-heading">
+                <h5 class="card-title">Reports</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a class="nav-link" href="{{ url_for('weeklyUpdate') }}">
+            <div class="card text-bg-dark">
+              <img
+                src="/static/image/updateCard.jpg"
+                class="card-img"
+                alt="membership"
+                style="opacity: 0.5"
+              />
+              <div class="card-img-overlay card-heading">
+                <h5 class="card-title">Member Weekly Update</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

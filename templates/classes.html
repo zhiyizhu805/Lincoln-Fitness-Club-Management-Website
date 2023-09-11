@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+
+  td{
+    transition: all 0.3s linear 0s;
+    border-radius:0.25em
+  }
+
+  td:hover {
+
+    transform: scale(1.2)
+    
+  };
+
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+  }
+  
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+  }
+
+
+</style>
+<form action="/classes" class="row g-3">
+  <div class="col-auto">
+    <label for="dateStart "class="col-form-label" >Choose Date :</label>  
+  </div>  
+  <div class="col-auto"> 
+    <input  type="date" name="dateChosen"  class="form-control "  id="dateChosen" min="{{Today}}" max="{{maxdate}}" value="{{dateChosen}}" >
+  </div>
+  <div class="col-auto">
+    <button  type="submit" class="btn btn-primary ">Filter</button>
+  </div>
+</form>
+
+<div class="row" >
+  <table class="table text-center table-light" >
+    <thead>
+      <tr >
+        {%for date in dbresultDate%}            
+         <th scope="col" class="border p-2 bg-dark text-white " >{{date}}</th> 
+        {%endfor%}
+       </tr>
+        <tr >
+       {%for col in dbcols%}            
+        <th scope="col" class="border sticky-header" >{{col}}</th> 
+       {%endfor%}
+      </tr>
+
+    </thead>
+    <tbody>
+      
+        
+        {%for result in dbresult%}
+        <tr>
+          {%for value in result%}
+          <!-- 变量不是list格式 且变量不是空-->
+            {%if value is not iterable and value is not none%}
+            <th scope="row" class="border noneStyleButton">{{value}}</th>
+            {% else %}
+              {%if value is not none %}
+              <td class="border hover " style="background-color:
+
+                {%if value[1]=='Pump'%} #D10000 
+                {%elif value[1]=='Step'%}#FFA600
+                {%elif value[1]=='Balance'%}#008000
+                {%elif value[1]=='HIIT'%}#00E0E0
+                {%elif value[1]=='Stretch'%}#4F4FFF
+                {%elif value[1]=='BodyJam'%}#B959FF
+                {%elif value[1]=='BodyAttack'%}#696969
+                {%elif value[1]=='Core'%}#C700C7
+                {%elif value[1]=='Step'%}#4545FF
+                {%else%}#000000
+                {%endif%}
+              ;color:white " >
+              <form action="/classes/addClasses/process" method='POST'>
+                                  <button type="submit" name="ClassID" Class="noneStyleButton" value="{{value[0]}}">
+                                    <input type="hidden" name="WaitForProcess" value='1'>
+                                    <input type="hidden" name="BookedClassDetails" value="0">
+                                    <input type="hidden" name="ptsessionbook" value='no'>
+                                    <h6>{{value[1]}}</h6>
+                                    <small>{{value[2]}}</small>
+                                    <div><small {%if value[-2]|int >0 %}class="text-white">{{value[-2]}} Available</small>{%else%}<small class="text-danger">Fully booked</small>{%endif%}
+                                      <small>/{{value[-1]}}</small></div>
+                                  </button>
+              </form>   
+              </td>
+              {%else%} 
+              <th class="border "></th>
+              {%endif%}  
+            {%endif%}    
+          {%endfor%}
+      
+        </tr>
+        {%endfor%}
+      
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+
+
+

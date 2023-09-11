@@ -1,0 +1,58 @@
+{% extends "admin.html" %} {% block content %}
+
+
+<div class="container userform">
+    <br/>
+    <h1>Gym Popularity Report</h1>
+    <br/>
+
+
+    <form action="/admin/checkpopbydate" method="POST">
+
+        <label for="startdate">Start Date:</label>
+        <input type="date" id="startdate" name="startdate" value="{{ startdate | default('2023-01-01') }}">
+
+        <label for="enddate">End Date:</label>
+        <input type="date" id="enddate" name="enddate" value="{{ enddate | default('2023-12-31') }}">
+
+        <Button type="submit" value="Yes" class="btn btn-outline-dark offset-sm-1 col-sm-1">Submit</button>
+    </form>
+<!--        <button onclick="history.back()" class="btn btn-outline-dark offset-sm-1 col-sm-1">Go back</button>-->
+{%if dbresult==[] %}{{message_nodata}}{%endif%}
+
+{%if dbresult!=[]%}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Class Name</th><th>Trainer Name</th><th>Attendance Number</th><th>Attendance Rate</th>
+        </tr>
+        </thead>
+    <tbody>
+
+        {%for result in dbresult%}
+        <tr>
+
+
+            <td>{{result[0]}}</td>
+            <td>{{result[1]}}</td>
+            <td>{{result[2]}}</td>
+            <td>{{result[3]}}</td>
+
+
+
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+    {%endif%}
+
+
+
+
+    <div class="table-responsive">
+
+    
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "admin.html" %} {% block content %}
+
+
+<div class="userform">
+
+
+    <form action="/admin/member/editmember/process" method="POST" class="myForm">
+        <br/>
+        <h1>Add a member</h1>
+        <br/>
+
+
+        <div class="row mb-3">    
+            <label for="firstname" class="offset-sm-2 col-sm-3 col-form-label">*First name:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="text" name="firstname" id="firstname" required pattern="^[a-zA-Z\s-]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="lastname" class="offset-sm-2 col-sm-3 col-form-label">*Last name:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="lastname" id="lastname" required pattern="^[a-zA-Z\s-]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="email"  class="offset-sm-2 col-sm-3 col-form-label">*Email:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="email" name="email" id="email" placeholder="email" required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="phone" class="offset-sm-2 col-sm-3 col-form-label">*Phone number:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="tel" name="phone" id="phone" placeholder="(000)000-0000" required pattern="^[0-9 -]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="PhysicalAddress" class="offset-sm-2 col-sm-3 col-form-label">Physical Address:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="PhysicalAddress" id="PhysicalAddress" required/><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="DOB" class="offset-sm-2 col-sm-3 col-form-label">*Date of birth:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="date" name="DOB" id="DOB" max="2007-03-26"required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3 ">
+            <label for="EmergencyName" class="offset-sm-2 col-sm-3 col-form-label">*Emergency Contact Name:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="EmergencyName" id="EmergencyName" required pattern="^[a-zA-Z\s-]+$"/><br/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="EmergencyNumber" class="offset-sm-2 col-sm-3 col-form-label">*Emergency Contact Number:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="tel" name="EmergencyNumber" id="EmergencyNumber" required pattern="^[0-9 -]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>   
+
+        <div class="row mb-3">
+            <label for="Mconditions" class="offset-sm-2 col-sm-3 col-form-label"> Medical Conditions:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="Mconditions" id="Mconditions" />
+            <div class="invalid-feedback"></div><br/><br/>
+        </div>
+            </div>
+        
+        <div class="row mb-3">
+            <label for="GJD" class="offset-sm-2 col-sm-3 col-form-label">*Gym Join Date:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="date" name="GJD" id="GJD" required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>    
+
+        <div class="row mb-3">
+            <label for="psw" class="offset-sm-2 col-sm-3 col-form-label">*Password:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="psw" id="psw" required pattern="^.{8,}$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>   
+
+            
+        <div class="row mb-3">
+            <p class="offset-sm-2 col-sm-3 col-form-label">*Receiving Notifications? </p>
+            <div class="col-sm-6">
+                <label for="yesNotis">Yes</label>
+                <input type="radio" id="yesNotis" name="ReceivingNotifications" value="Yes" required>
+                <label for="noNotis" >No</label>
+                <input  type="radio" id="noNotis" name="ReceivingNotifications" value="No"required>
+                <div class="invalid-feedback"></div>
+        </div>
+            </div>  
+    
+
+        <div> 
+            <input type="hidden" name="autoFee" id="autoFee" value="Yes" /><br/>
+        </div>
+
+        <div class="row mb-3">    
+            <label for="BankName" class="offset-sm-2 col-sm-3 col-form-label">*Bank Name:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8"type="text" name="BankName" id="BankName" required/><br/>
+            <div class="invalid-feedback"></div></div>
+        </div>
+            </div>  
+
+        <div class="row mb-3">    
+            <label for="BankAccountHolderName" class="offset-sm-2 col-sm-3 col-form-label">*Bank Account Holder Name:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="text" name="BankAccountHolderName" id="BankAccountHolderName" required pattern="^[a-zA-Z\s-]+$"/><br/>
+            <div class="invalid-feedback"></div>
+        </div>
+            </div>  
+
+        <div class="row mb-3">    
+            <label for="BankAccountNumber" class="offset-sm-2 col-sm-3 col-form-label">*Bank Account Number:</label>
+            <div class="invalid-feedback"></div><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="text" name="BankAccountNumber" id="BankAccountNumber" required pattern="^[0-9 -]+$" /><br/>
+            <div class="invalid-feedback"></div></div>
+        </div>
+            </div>  
+
+
+        <div>
+            <input type="hidden" name="MemberStatus" id="MemberStatus" value="Active" /><br/>
+        </div>
+       
+        <div class="row mb-3">    
+            <label for="MemberNotes" class="offset-sm-2 col-sm-3 col-form-label">Member Notes:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="text" name="MemberNotes" id="MemberNotes"  /><br/>
+        </div>
+            </div>  
+        
+        
+           <div class="row mb-3 offset-sm-5 col-sm-2">
+            <button type="submit" name="memberID" id="submit" value="None" class="btn btn-dark"/>Create</button><br/>
+           </div>
+
+     </form>
+
+</div>
+
+{% endblock %}

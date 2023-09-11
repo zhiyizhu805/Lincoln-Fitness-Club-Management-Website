@@ -1,0 +1,282 @@
+{% extends "base.html" %} {% block content %}
+<div class="container ">
+  <div class="card mb-3 mx-auto" style="max-width: 1100px;">
+    <div class="row g-0">
+      <div class="col-md-5">
+        <img class="card-img-top" 
+        {%for ClassInfo in dbresultClassInfo%}
+        {%if ClassInfo[1]=='Pump'%}src="/static/image/groupClass/Pump.jpg"
+        {%elif ClassInfo[1]=='Step'%}src="/static/image/groupClass/Step.jpg"
+        {%elif ClassInfo[1]=='Balance'%}src="/static/image/groupClass/Balance.jpg"
+        {%elif ClassInfo[1]=='HIIT'%}src="/static/image/groupClass/HIIT.jpg"
+        {%elif ClassInfo[1]=='Stretch'%}src="/static/image/groupClass/Stretch.jpg"
+        {%elif ClassInfo[1]=='BodyJam'%}src="/static/image/groupClass/BodyJam.jpeg"
+        {%elif ClassInfo[1]=='BodyAttack'%}src="/static/image/groupClass/BodyAttack.jpg"
+        {%elif ClassInfo[1]=='Core'%}src="/static/image/groupClass/Core.jpg"
+        {%elif ClassInfo[1]=='Step'%}src="/static/image/groupClass/Core.jpg"
+        {%else%}src="/static/image/groupClass/PTsession.jpg"
+        {%endif%}
+        alt="Card image cap">
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+          <h2 class="card-title">{{ClassInfo[1]}}</h2>
+          <h5 class="card-text">{{ClassInfo[-1]}}</h5>
+    
+          
+          {%if ClassInfo[-3]> 0 %}
+          <h6 class="card-text font-italic text-success">{{ClassInfo[-3]}}  Available/{{ClassInfo[-2]}}</h6>
+          {%else%}
+          <h6 class="card-text font-italic text-danger">{{ClassInfo[-3]}}  Available/{{ClassInfo[-2]}}</h6>
+          {%endif%}
+          <br/>
+          <h6>Trainer:{{ClassInfo[2]}}</h6>
+          <span><h6 class="card-text ">Date: {{ClassInfo[4]}} {{ClassInfo[3]}}</h6>
+          <h6 class="card-text "> Time: {{ClassInfo[5]}} - {{ClassInfo[6]}}</h6><span>
+         {%if ptsessionbook == 'no'%}
+            <form action="/classes/addClasses/process" method='POST'>
+
+            
+            <button href="/classes/addClasses/process"   class="btn btn-primary" name="MemberID" value="{{ClassInfo[0]}}"
+            onclick="return confirm('Book in Class-{{ClassInfo[1]}} with {{ClassInfo[8]}} at {{ClassInfo[5]}} on {{ClassInfo[4]}} {{ClassInfo[3]}}?')"
+            {% if ClassInfo[-3]<=0  or  ( ClassID in BookingValidation) or DisableBookButton=='Yes' %} disabled {%endif%}>
+              {% if ClassID in BookingValidation%}
+              Booked
+              {%else%} 
+                {% if ClassInfo[-3]<=0 %}
+                  Fully Booked
+                  {%else%}
+                  Book
+                  {%endif%}
+              {%endif%} 
+            </button>
+            <input type="hidden" name="ClassID" value="{{ClassID}}">
+            <input type="hidden" name="WaitForProcess" value="0">
+            <input type="hidden" name="BookedClassDetails" value="0">
+            
+          </form>
+          {%else%}
+
+          <button type="button" name="ClassID" Class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal{{ClassInfo[-4]}}{{ClassInfo[4]}}"
+          {% if ClassInfo[-3]<=0  or  ( ClassID in BookingValidation) or DisableBookButton=='Yes' %} disabled {%endif%}>
+          {% if ClassID in BookingValidation%}
+          Booked
+          {%else%} 
+            {% if ClassInfo[-3]<=0 %}
+              Fully Booked
+              {%else%}
+              Book
+              {%endif%}
+          {%endif%} 
+          </button>
+
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if BookedClassDetails=='1'%}
+<div style="text-align:center">
+  <a class="button btn btn-outline-primary "  href="/myBooking">Back to My Booking </a>
+</div>
+
+{%elif BookedClassDetails=='0'%}
+<div style="text-align:center">
+      <a class="button btn btn-outline-primary "  href="/classes">Back to Class Calendar</a>
+      
+      {%if ClassID in BookingValidation%}
+      
+      <a class="button btn btn-outline-success "  href="/myBooking">Manage the booking</a>
+      </div>
+      {%endif%}  
+{%elif BookedClassDetails=='2'%}
+<div style="text-align:center">
+      <a class="button btn btn-outline-primary "  href="/ptCalendar">Back to PT Calendar</a>
+   
+    {%if ClassID in BookingValidation%}
+   
+    <a class="button btn btn-outline-success "  href="/myBooking">Manage the booking</a>
+    </div>
+    {%endif%}  
+
+{%endif%}
+
+
+
+
+
+
+         <!-- book session payment modal -->
+         <div
+         class="modal fade"
+         id="bookingModal{{ClassInfo[-4]}}{{ClassInfo[4]}}"
+         tabindex="-1"
+         aria-labelledby="bookingModalLabel"
+         aria-hidden="true"
+       >
+         <div class="modal-dialog modal-dialog-centered">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h3 class="modal-title fs-5" id="bookingModalLabel">
+                 Confirm Your Session Booking
+               </h3>
+               <button
+                 type="button"
+                 class="btn-close"
+                 data-bs-dismiss="modal"
+                 aria-label="Close"
+               ></button>
+             </div>
+             <div class="modal-body">
+               <div class="mb-3">
+                 <h6>Trainer: {{ClassInfo[2]}}</h6>
+               </div>
+               <div class="mb-3">
+                 <h6>Date: {{ClassInfo[3]}}</h6>
+               </div>
+               <div class="mb-3">
+                 <h6>Time: {{ClassInfo[5]}}~{{ClassInfo[6]}}</h6>
+               </div>
+               <div class="mb-3">
+                 <h6>Session Fee: $50</h6>
+               </div>
+               <form
+                 action="/bookSession"
+                 method="post"
+                 class="needs-validation"
+                 novalidate
+               >
+                 <input
+                   name="classID"
+                   value="{{ClassInfo[0]}}"
+                   type="hidden"
+                 />
+                 <div class="mb-3">
+                   <div class="col">
+                     <label for="bankaccount" class="col-form-label"
+                       >Credit Card Number(16 digits):</label
+                     >
+                   </div>
+                   <div class="col">
+                     <input
+                       type="number"
+                       class="form-control bankaccount"
+                    
+                       name="bankaccount"
+                       minlength="16"
+                       min="1000000000000000"
+                       max="9999999999999999"
+                       value=""
+                       required
+                     />
+                     <div class="invalid-feedback">
+                       card number must be 16 digits
+                     </div>
+                   </div>
+                 </div>
+                 <div class="mb-3">
+                   <div class="col">
+                     <label for="bankname" class="col-form-label"
+                       >Card Holder:</label
+                     >
+                   </div>
+                   <div class="col">
+                     <input
+                       type="text"
+                       class="form-control bankname"
+                    
+                       name="bankname"
+                       required
+                     />
+                     <div class="invalid-feedback">
+                       invalid name
+                     </div>
+                   </div>
+                 </div>
+                 <div class="mb-3">
+                   <div class="col">
+                     <label for="bankcvc" class="col-form-label"
+                       >CVC Code(3 or 4 digits):</label
+                     >
+                   </div>
+                   <div class="col">
+                     <input
+                       type="number"
+                       class="form-control bankcvc"
+                  
+                       name="bankcvc"
+                       minlength="3"
+                       min="001"
+                       max="999"
+                       value=""
+                       required
+                     />
+                     <div class="invalid-feedback">
+                       cvc code must be 3 or 4 digits
+                     </div>
+                   </div>
+                   <div class="mb-3">
+                     <div class="col">
+                       <label for="expireMonth" class="col-form-label"
+                         >Expiry Month:</label
+                       >
+                     </div>
+                     <div class="col">
+                       <input
+                         type="number"
+                         class="form-control expireMonth"
+                  
+                         name="expireMonth"
+                         minlength="2"
+                         min="1"
+                         max="12"
+                         value=""
+                         required
+                       />
+                       <div class="invalid-feedback">
+                         invalid month
+                       </div>
+                     </div>
+                     <div class="mb-3">
+                       <div class="col">
+                         <label for="expireYear" class="col-form-label"
+                           >Expiry Year:</label
+                         >
+                       </div>
+                       <div class="col">
+                         <input
+                           type="number"
+                           class="form-control expireYear"
+                          
+                           name="expireYear"
+                           minlength="4"
+                           min="2023"
+                           value=""
+                           required
+                         />
+                         <div class="invalid-feedback">
+                           invalid year
+                         </div>
+                       </div>
+                 </div>
+                 <br />
+                 <div class="mb-3">
+                   <div class="col-auto">
+                     <button type="submit" class="btn btn-primary">
+                       Make Payment
+                     </button>
+                   </div>
+                 </div>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+       <!-- book session payment modal -->
+
+
+
+{%endfor%}
+{% endblock %}

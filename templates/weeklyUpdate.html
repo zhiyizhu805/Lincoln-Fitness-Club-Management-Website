@@ -1,0 +1,58 @@
+{% extends "admin.html" %} {% block content %}
+
+<section class="content">
+  <div class="container" style="margin: 20px 10px">
+    <!-- flash message -->
+    <div>
+      {% for message in get_flashed_messages() %}
+      <div
+        class="alert alert-success alert-dismissible fade show"
+        role="alert"
+        style="text-align: center"
+      >
+        {{message}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {%endfor%}
+    </div>
+    <!-- flash message -->
+    <div style="margin-top: 10%">
+      <div class="row"><h3>Send Weekly Update</h3></div>
+      <br />
+      <form action="/admin/weeklyUpdatePOST" method="post">
+        <div class="mb-3">
+          <label for="topic" class="form-label">Update Topic</label>
+          <input
+            type="text"
+            class="form-control"
+            id="topic"
+            name="topic"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="update" class="form-label">Update</label>
+          <input
+            class="form-control"
+            type="text"
+            id="content"
+            name="content"
+            rows="3"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary mb-3">
+            Send Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

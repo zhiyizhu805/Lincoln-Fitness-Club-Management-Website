@@ -1,0 +1,95 @@
+{% extends "admin.html" %} {% block content %}
+
+
+<div class="container userform">
+    <br/>
+    <h1>Financial Report</h1>
+    <br/>
+
+
+    <form action="/admin/checkfinancebydate" method="POST">
+
+        <label for="startdate">Start Date:</label>
+        <input type="date" id="startdate" name="startdate" value="{{ startdate | default('2023-01-01') }}">
+
+        <label for="enddate">End Date:</label>
+        <input type="date" id="enddate" name="enddate" value="{{ enddate | default('2023-12-31') }}">
+
+        <Button type="submit" value="Yes" class="btn btn-outline-dark offset-sm-1 col-sm-1">Submit</button>
+    </form>
+
+    {%if dbresult==[] %}{{message_nodata}}{%endif%}
+
+    {%if dbresult!=[]%}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Revenue Source</th><th>Revenue($ NZD)</th>
+        </tr>
+        </thead>
+    <tbody>
+
+        {%for separate_f in dbresult%}
+        <tr>
+            <td>{{separate_f[0]}}</td>
+            <td>{{separate_f[1]}}</td>
+
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+
+        <h3>Total Revenue by Trainer in the selected period</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Trainer Name</th><th>Revenue($ NZD)</th>
+        </tr>
+        </thead>
+            <tbody>
+
+                {%for trainer_df in dbresult_single%}
+                <tr>
+
+
+                    <td>{{trainer_df[0]}}</td>
+                    <td>{{trainer_df[1]}}</td>
+
+
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+    <h3>Total Revenue in the selected period</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Revenue($ NZD)</th>
+        </tr>
+        </thead>
+    <tbody>
+
+        {%for separate_total in dbresult_f%}
+        <tr>
+
+
+            <td>{{separate_total[0]}}</td>
+
+
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+    {%endif%}
+
+
+
+
+    <div class="table-responsive">
+
+    
+    </div>
+</div>
+
+{% endblock %}

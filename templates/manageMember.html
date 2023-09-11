@@ -1,0 +1,61 @@
+{% extends "admin.html" %} {% block content %}
+<div class="userform">
+    <br/>
+    <h1>Member List</h1>
+    <br/>
+    <div class="row mb-3">
+    <form action="/admin/member" method="GET">
+
+        <label class="offset-sm-3 col-sm-2"   for="showMemberType">Choose to show:</label>
+
+        <select class="col-sm-2" name="showMemberType" id="showMemberType">
+          <option value="" {%if showMemberType=='%'%}selected{%endif%}>All members</option>  
+          <option value="Active" {%if showMemberType=='Active%'%}selected{%endif%}>Active members</option>
+          <option value="Inactive" {%if showMemberType=='Inactive%'%}selected{%endif%}>Inactive members</option>
+          <option value="Archived"{%if showMemberType=='Archived%'%}selected{%endif%}>Archived members</option>
+        </select>
+
+
+        <Button type="submit" value="Yes" class="btn btn-outline-dark offset-sm-1 col-sm-1">Submit</button>
+            <br/>
+    </div>    
+    </form>
+    </div>
+{%if dbresult==[] %}{{message_nodata}}{%endif%}
+
+{%if dbresult!=[]%}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                {%for col in dbcols%}
+                      <th scope="col">{{col}}</th>
+                {%endfor%}
+                    <!-- <th>Edit</th> -->
+            </tr>
+        </thead>
+    <tbody>
+        {%for result in dbresult%}
+        <tr {%if result[4]=="Inactive"%} class="table-danger" 
+            {%elif result[4]=="Archived"%} class="table-warning"
+            {%else%} {%endif%}>
+            <td>
+                <form action="/admin/member/editmember">
+                    <button type="submit" name="memberID" value="{{result[0]}}" class="btn btn-dark">View details</button>
+                </form> 
+            </td>
+            <td>{{result[1]}}</td>
+            <td>{{result[2].strftime('%d %B %Y')}}</td>
+            <td>{{result[3].strftime('%d %B %Y')}}</td>
+            <td>{{result[4]}}</td>
+
+                
+                <!-- <td><a href="/editdetails"><button class="btn btn-outline-primary buttonlink">Edit</button></a></td> -->
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+    {%endif%}
+    
+    </div>
+
+{% endblock %}

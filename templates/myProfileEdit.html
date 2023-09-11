@@ -1,0 +1,300 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row"><h1 class="text-dark">Your personal details</h1></div>
+  <br />
+  <div>
+    <form action="/myProfileEditPOST" method="POST">
+      <input
+        type="hidden"
+        id="memberID"
+        name="memberID"
+        class="form-control"
+        value="{{select_result[0]}}"
+      />
+      <div class="form-group row">
+        <label for="firstname" class="col-sm-3 col-form-label"
+          ><strong>First name:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="firstname"
+            name="firstname"
+            class="form-control"
+            readonly
+            value="{{select_result[1]}}"
+          />
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="lastname" class="col-sm-3 col-form-label"
+          ><strong>Last name:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            class="form-control"
+            readonly
+            value="{{select_result[2]}}"
+          />
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="email" class="col-sm-3 col-form-label"
+          ><strong>Email:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            value="{{select_result[3]}}"
+            readonly
+          />
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="physicaladdress" class="col-sm-3 col-form-label"
+          ><strong>Address:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="physicaladdress"
+            name="physicaladdress"
+            class="form-control"
+            value="{{select_result[4]}}"
+          />
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="phone" class="col-sm-3 col-form-label"
+          ><strong>Phone:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="form-control"
+            value="{{select_result[5]}}"
+          />
+        </div>
+      </div>
+      <div class="invalid-feedback"></div>
+      <br />
+
+      <div class="form-group row">
+        <label for="birthdate" class="col-sm-3 col-form-label"
+          ><strong>Birth date:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="date"
+            id="birthdate"
+            name="birthdate"
+            class="form-control"
+            readonly
+            value="{{select_result[6]}}"
+            
+          />
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="emergencycontactname" class="col-sm-3 col-form-label"
+          ><strong>Emergency contact name:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="emergencycontactname"
+            name="emergencycontactname"
+            class="form-control"
+            value="{{select_result[7]}}"
+            pattern="[A-Za-z\s-]+"
+            required
+          />
+        </div>
+      </div>
+      <div class="invalid-feedback"></div>
+      <br />
+
+      <div class="form-group row">
+        <label for="emergencycontactnumber" class="col-sm-3 col-form-label"
+          ><strong>Emergency contact number:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="tel"
+            id="emergencycontactnumber"
+            name="emergencycontactnumber"
+            class="form-control"
+            value="{{select_result[8]}}"
+            required pattern="^[0-9 -]+$"
+            required
+          />
+        </div>
+      </div>
+      <div class="invalid-feedback"></div>
+      <br />
+
+      <div class="form-group row">
+        <label for="medicalconditions" class="col-sm-3 col-form-label"
+          ><strong>Medical conditions:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="medicalconditions"
+            name="medicalconditions"
+            class="form-control"
+            value="{{select_result[9]}}"
+          />
+        </div>
+      </div>
+      <br />
+
+      <br />
+
+      <div class="form-group row">
+        <p class="col-sm-3 col-form-label">
+          <strong>Receiving gym notifications:</strong>
+        </p>
+        <div class="col-sm-6">
+          <label for="yesNotis">Yes</label>
+          <input
+            type="radio"
+            id="yesNotis"
+            name="receivingnotifications"
+            checked
+            value="Yes"
+          />
+          <label for="noNotis">No</label>
+          <input
+            type="radio"
+            id="noNotis"
+            name="receivingnotifications"
+            value="No"
+          />
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <p class="col-sm-3 col-form-label">
+          <strong>Deduct membership fees by direct debit:</strong>
+        </p>
+        <div class="col-sm-6">
+          <label for="Yes">Yes</label>
+          <input
+            type="radio"
+            id="Yes"
+            name="authorityoncollectingfees"
+            checked
+            value="Yes"
+          />
+          <label for="No">No</label>
+          <input
+            type="radio"
+            id="No"
+            name="authorityoncollectingfees"
+            value="No"
+          />
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="bankname" class="col-sm-3 col-form-label"
+          ><strong>Bank name:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="bankname"
+            name="bankname"
+            class="form-control"
+            value="{{select_result[14]}}"
+            pattern="[A-Za-z\s-]+"
+            required
+          />
+        </div>
+      </div>
+      <div class="invalid-feedback"></div>
+      <br />
+
+      <div class="form-group row">
+        <label for="bankaccountholdername" class="col-sm-3 col-form-label"
+          ><strong>Bank account name:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="bankaccountholdername"
+            name="bankaccountholdername"
+            class="form-control"
+            value="{{select_result[15]}}"
+            pattern="[A-Za-z\s-]+"
+            required
+          />
+        </div>
+      </div>
+      <div class="invalid-feedback"></div>
+      <br />
+
+      <div class="form-group row">
+        <label for="bankaccountnumber" class="col-sm-3 col-form-label"
+          ><strong>Bank account number:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="bankaccountnumber"
+            name="bankaccountnumber"
+            class="form-control"
+            value="{{select_result[16]}}"
+            required pattern="^[0-9 -]+$"
+            required
+          />
+        </div>
+      </div>
+      <div class="invalid-feedback"></div>
+      <br />
+
+      <div class="form-group row">
+        <label for="notes" class="col-sm-3 col-form-label"
+          ><strong>Notes:</strong></label
+        >
+        <div class="col-sm-6">
+          <input
+            type="text"
+            id="notes"
+            name="notes"
+            class="form-control"
+            value="{{select_result[18]}}"
+          />
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <button type="submit" class="btn btn-primary mb-3" style="width: 30%">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

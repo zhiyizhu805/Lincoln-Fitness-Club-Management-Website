@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block content %}
+
+<form action="/membership/CancelSubscription" method="POST">  		
+<h1 class="text-dark">Your Subscription details </h1>
+{%if select_result[-6]=='Yes'%}
+<h6 class="text-success">{{DeductionNotice}}</h6>
+{%endif%}
+{%if select_result[-6]=='No'%}
+<h6 class="text-danger">{{validperiodNotice}}</h6>
+<h6 > {{daysRemain}}</h6>
+{%endif%}
+{%if MemberStatus=='Inactive' and ExpiryDate!=None%}
+<h6 class="text-danger">{{ExpiryNotice}}<h6>
+{%endif%}
+<br/>
+<div class="form-group row">
+	<label for="firstname" class="col-sm-3 col-form-label"><strong>Subscription Status:</strong></label>
+	<div class="col-sm-6">
+	  <input type="text" id="firstname" name="firstname" class="form-control" readonly value="{{select_result[-2]}}"  >
+	</div>
+  </div>
+  <div class="form-group row">
+	<label for="firstname" class="col-sm-3 col-form-label"><strong>Authority On Auto Collecting Fees:</strong></label>
+	<div class="col-sm-6">
+	  <input type="text" id="firstname" name="firstname" class="form-control" readonly value="{{select_result[-6]}}"  >
+	</div>
+  </div>
+  <br/>
+  <div >
+{%if select_result[-6]=='Yes'%}
+	<button class="btn btn-primary btn-sm col-sm-3 m-5" type='submit' name="MemberID" value="{{select_result[0]}}"
+	onclick="return confirm('Are you sure you want to cancel the auto payment?')">Stop Auto-renew
+	</button>	
+    <input type="hidden" name="TaskToDo" value="Deactivate">
+{%elif select_result[-6]=='No'%}    
+    <button class="btn btn-primary btn-sm col-sm-3 m-5" type='submit' name="MemberID" value="{{select_result[0]}}"
+	onclick="return confirm('Are you sure you want to reactivate the auto payment?')">Reactivate Auto-renew
+    </button>	
+    <input type="hidden" name="TaskToDo" value="Reactivate">
+</div>
+{%endif%}
+
+</form>
+
+	</div>
+{% endblock %}

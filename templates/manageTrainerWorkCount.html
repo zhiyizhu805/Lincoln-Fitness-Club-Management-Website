@@ -1,0 +1,56 @@
+{% extends "admin.html" %} {% block content %}
+
+
+<div class="container userform">
+    <br/>
+    <h1>View Trainers' Workload</h1>
+    <br/>
+
+
+    <form action="/admin/checkclasscount" method="POST">
+
+        <label for="startdate">Start Date:</label>
+        <input type="date" id="startdate" name="startdate" value="{{startdate}}">
+
+        <label for="enddate">End Date:</label>
+        <input type="date" id="enddate" name="enddate" value="{{enddate}}">
+
+        <Button type="submit" value="Yes" class="btn btn-outline-dark offset-sm-1 col-sm-1">Submit</button>
+
+    </form>
+
+    <table class="table table-hover">
+    <tbody>
+
+        <tr>
+            <th>Trainer Name</th><th>Class Count</th><th>View Details</th>
+        </tr>
+
+        {%for result in dbresult%}
+        <tr>
+
+
+            <td>{{result[1]}}</td>
+            <td>{{result[2]}}</td>
+            <td>
+                <form action="/admin/trainer/workdetails?trainerID={{result[0]}}&startdate={{startdate}}&enddate={{enddate}}" method="POST">
+                    <button type="submit" name="trainerID" value="{{result[0]}}" class="btn btn-dark">View Details</button>
+                </form>
+            </td>
+
+
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+
+
+
+
+    <div class="table-responsive">
+
+    
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,204 @@
+{% extends "admin.html" %} {% block content %}
+
+<div >
+    <div class="userform">
+
+    <form action="/admin/member/editmember/process" method="POST" class="myForm">
+        <br/>
+        <h1 >Edit member</h1>
+        <br/>
+
+
+        <div class="row mb-3">    
+            <label for="memberID" class="offset-sm-2 col-sm-3 col-form-label">*Member ID:</label>
+            <div class="col-sm-6">  
+                <input class="col-sm-8" type="text" name="memberID" id="memberID" value="{{memberID}}" readonly />
+            </div>
+        </div>
+
+        <div > 
+            <input type="hidden" name="memberID" id="memberID" value="{{memberID}}" /><br/>
+        </div>
+
+        <div class="row mb-3">    
+            <label for="firstname" class="offset-sm-2 col-sm-3  col-form-label">*First name:</label><br/>
+            <div class="col-sm-6"> 
+				<input class="col-sm-8" type="text" name="firstname" id="firstname" value="{{firstname}}" required 
+				{% if removeReadonly=="" %}readonly{%endif%} pattern="^[a-zA-Z\s-]+$"/>
+                <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="lastname" class="offset-sm-2 col-sm-3  col-form-label">*Last name:</label><br/>
+            <div class="col-sm-6">
+            <input pattern="^[a-zA-Z\s-]+$" class="col-sm-8" type="text" name="lastname" id="lastname" value="{{lastname}}"required {% if removeReadonly=="" %}readonly{%endif%}
+            /><div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="email"  class="offset-sm-2 col-sm-3  col-form-label">*Email:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="email" name="email" id="email" placeholder="example@gmail.com" value="{{email}}" required 
+            {% if removeReadonly=="" %}readonly{%endif%}/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="phone" class="offset-sm-2 col-sm-3 col-form-label">*Phone number:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="tel" name="phone" id="phone" placeholder="(000)000-0000" value="{{phone}}" required pattern="^[0-9 -]+$"
+			{% if removeReadonly=="" %}readonly{%endif%}/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="PhysicalAddress" class="offset-sm-2 col-sm-3 col-form-label">Physical Address:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="PhysicalAddress" id="PhysicalAddress" value="{{PhysicalAddress}}"  {% if removeReadonly=="" %}readonly{%endif%}/><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="DOB" class="offset-sm-2 col-sm-3 col-form-label">*Date of birth:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="date" name="DOB" id="DOB"  value="{{DOB}}" required max="2007-03-26" {% if removeReadonly=="" %}readonly{%endif%}/><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="EmergencyName" class="offset-sm-2 col-sm-3 col-form-label">*Emergency Contact Name:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="EmergencyName" id="EmergencyName" value="{{EmergencyName}}"  pattern="^[a-zA-Z\s-]+$" {% if removeReadonly=="" %}readonly{%endif%} required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="EmergencyNumber" class="offset-sm-2 col-sm-3 col-form-label">*Emergency Contact Number:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="tel" name="EmergencyNumber" id="EmergencyNumber"  value="{{EmergencyNumber}}"  {% if removeReadonly=="" %}readonly{%endif%} required pattern="^[0-9 -]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>   
+
+        <div class="row mb-3">
+            <label for="Mconditions" class="offset-sm-2 col-sm-3 col-form-label"> Medical Conditions:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="Mconditions" id="Mconditions" value="{{ Mconditions}}" {% if removeReadonly=="" %}readonly{%endif%}/><br/>
+        </div>
+            </div>
+        
+        <div class="row mb-3 ">
+            <label for="GJD" class="offset-sm-2 col-sm-3 col-form-label">*Gym Join Date:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="date" name="GJD" id="GJD"  value="{{GJD}}" required{% if removeReadonly=="" %}readonly{%endif%}/><br/>
+        </div>
+            </div>    
+
+        <div class="row mb-3">
+            <label for="psw" class="offset-sm-2 col-sm-3 col-form-label">*Password:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="psw" id="psw" value="{{psw}}" required pattern="^.{8,}$" {% if removeReadonly=="" %}readonly{%endif%}/>
+            <div class="invalid-feedback"></div><br/><br/>
+        </div>
+            </div>   
+
+            
+        <div class="row mb-3">
+            <p class="offset-sm-2 col-sm-3 col-form-label">*Receiving Notifications? </p>
+            <div class="col-sm-6">
+                <label for="yesNotis">Yes</label>
+                <input type="radio" id="yesNotis" name="ReceivingNotifications"{%if ReceivingNotifications== 'Yes' %} checked {%endif%} value="Yes" {% if removeReadonly=="" %}disabled{%endif%} >
+                <label for="noNotis" >No</label>
+                <input type="radio" id="noNotis" name="ReceivingNotifications" {%if ReceivingNotifications=='No' %} checked {%endif%} value="No" {% if removeReadonly=="" %}disabled{%endif%} >
+                <div class="invalid-feedback"></div><br/>
+            </div>
+        </div>  
+    
+        <div class="row mb-3">
+            <p class="offset-sm-2 col-sm-3 col-form-label">*Authority On Collecting Fees: </p>
+            <div class="col-sm-6">
+            <label for="Yes" >Yes</label>
+            <input type="radio" id="Yes" name="autoFee" {%if autoFee=='Yes' %} checked{%endif%} value="Yes" {% if removeReadonly=="" %}disabled{%endif%} >
+            <label for="No">No</label>
+            <input type="radio" id="No" name="autoFee" {%if autoFee=='No' %} checked {%endif%} value="No" {% if removeReadonly=="" %}diabled{%endif%}>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>      
+
+
+        <div class="row mb-3">    
+            <label for="BankName" class="offset-sm-2 col-sm-3 col-form-label">*Bank Name:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8"type="text" name="BankName" id="BankName" value="{{BankName}}"  required {% if removeReadonly=="" %}readonly{%endif%}/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>  
+
+        <div class="row mb-3">    
+            <label for="BankAccountHolderName" class="offset-sm-2 col-sm-3 col-form-label">*Bank Account Holder Name:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="text" name="BankAccountHolderName" id="BankAccountHolderName" pattern="^[a-zA-Z\s-]+$" value="{{BankAccountHolderName}}"   required {% if removeReadonly=="" %}readonly{%endif%}/>
+            <div class="invalid-feedback"></div><br/><br/>
+        </div>
+            </div>  
+
+        <div class="row mb-3">    
+            <label for="BankAccountNumber" class="offset-sm-2 col-sm-3 col-form-label">*Bank Account Number:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="text" name="BankAccountNumber" id="BankAccountNumber"  value="{{BankAccountNumber}}" required {% if removeReadonly=="" %}readonly{%endif%} required pattern="^[0-9 -]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>  
+
+        <div class="row mb-3">
+            <p class="offset-sm-2 col-sm-3 col-form-label">*Membership Status: </p>
+            <div class="col-sm-6">
+            <label for="Active" >Active</label>
+            <input type="radio" id="Active" name="MemberStatus" {%if MemberStatus=='Active' %} checked {%endif%} value="Active" {% if removeReadonly=="" %}disabled{%endif%}>
+            <label for="Inactive">Inactive</label>
+            <input type="radio" id="Inactive" name="MemberStatus" {%if MemberStatus=='Inactive' %} checked {%endif%} value="Inactive" {% if removeReadonly=="" %}disabled{%endif%}>
+            <label for="Archived">Archived</label>
+            <input type="radio" id="Archived" name="MemberStatus" {%if MemberStatus=='Archived' %} checked {%endif%} value="Archived" {% if removeReadonly=="" %}disabled{%endif%}>
+            
+        </div>
+            </div> 
+
+        <div class="row mb-3">    
+            <label for="MemberNotes" class="offset-sm-2 col-sm-3 col-form-label">Member Notes:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="textarea" name="MemberNotes" id="MemberNotes" value="{{MemberNotes}}" {% if removeReadonly=="" %}readonly{%endif%}/><br/>
+        </div>
+            </div>    
+			
+			
+
+			{%if removeReadonly=="yes"%}
+            <div class="d-flex justify-content-center align-items-center">
+                <button class="btn btn-dark btn-sm col-sm-3 m-5" type="submit" name="removeReadonly" value="">Submit</button>
+                <a href="/admin/member" class="btn btn-dark btn-sm col-sm-3 m-5">Back</a>
+              </div>
+			{%endif%}
+
+	        
+
+            
+
+        </form>
+
+	{% if removeReadonly=="" %}
+	
+    <form action="/admin/member/editmember">
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="btn btn-dark btn-sm col-sm-3 m-5" type="submit" name="removeReadonly" value="yes">Edit</button>
+          <input type="hidden" name="memberID" id="memberID" value="{{memberID}}" />
+        </div>
+      </form>
+	{%endif%}
+</div>
+</div>
+
+
+
+{% endblock %}
+

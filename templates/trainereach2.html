@@ -1,0 +1,49 @@
+{% extends "admin.html" %} {% block content %}
+
+
+<div class="container userform">
+
+    {%if successMessage_add%}
+            {{successMessage_add}}
+    <div class="buttonToRight"><a href="/admin/addtrainer"><button class="btn btn-danger">Add another trainer</button></a></div>
+    {%endif%}
+
+    {%if successMessage_update%}
+        {{successMessage_update}}
+    {%endif%}
+    <h1>Trainer details</h1>   
+    <div class="table-responsive">
+        <table class="table table-hover eachmember ">
+            <thead>
+                <tr>
+                {%for col in dbcols%}
+               
+                    <th scope="col">{{col}}</th> 
+
+                {%endfor%}
+                </tr>
+
+            </thead>
+
+   
+            <tbody>
+                    {%for result in dbresult%}
+                    <tr>
+                        {%for value in result %}
+                            <td>{{value}}</td>
+                        {%endfor%}
+                    <tr>
+                    {%endfor%}
+
+            </tbody>
+    </table>
+</div>
+
+<form action="/admin/trainer/edittrainer" method='POST'>
+    <div class="buttons">
+    <button type="submit" name="trainerID" value="{{dbresult[0][0]}}" class="btn btn-dark">Edit</button>
+    </div>     
+</form>
+
+
+{% endblock %}

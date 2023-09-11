@@ -1,0 +1,104 @@
+{% extends "admin.html" %} {% block content %}
+
+
+<div class="userform">
+
+
+    <form action="/admin/trainer/edittrainer/process" method="POST" class="myForm" >
+        <br/>
+        <h1>Add a trainer</h1>
+        <br/>
+
+
+        <div class="row mb-3">    
+            <label for="firstname" class="offset-sm-2 col-sm-3 col-form-label">*First name:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="text" name="firstname" id="firstname"  pattern="^[a-zA-Z\s-]+$" required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="lastname" class="offset-sm-2 col-sm-3 col-form-label">*Last name:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="lastname" id="lastname"  pattern="^[a-zA-Z\s-]+$" required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="email"  class="offset-sm-2 col-sm-3 col-form-label">*Email:</label><br/>
+            <div class="col-sm-6"> 
+            <input class="col-sm-8" type="email" name="email" id="example@gmail.com" placeholder="email" required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="phone" class="offset-sm-2 col-sm-3 col-form-label">*Phone number:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="tel" name="phone" id="phone" placeholder="(000)000-0000" required pattern="^[0-9 -]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="DOB" class="offset-sm-2 col-sm-3 col-form-label">*Date of birth:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="date" name="DOB" id="DOB" max="2007-03-26" required/>
+            <div class="invalid-feedback"></div><br/>
+            <br/>
+        </div>
+            </div>
+        <div class="row mb-3">
+            <label for="EmergencyName" class="offset-sm-2 col-sm-3 col-form-label">*Emergency Contact Name:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="EmergencyName" id="EmergencyName"  pattern="^[a-zA-Z\s-]+$"required/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>
+
+        <div class="row mb-3">
+            <label for="EmergencyNumber" class="offset-sm-2 col-sm-3 col-form-label">*Emergency Contact Number:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="tel" name="EmergencyNumber" id="EmergencyNumber"  required pattern="^[0-9 -]+$"/>
+            <div class="invalid-feedback"></div><br/>
+        </div>
+            </div>   
+        <div class="row mb-3">
+            <label for="DOE" class="offset-sm-2 col-sm-3 col-form-label">*Date Of Employment:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="date" name="DOE" id="DOE" required/>
+            <div class="invalid-feedback"></div><br/><br/>
+        </div>
+            </div>    
+
+        <div class="row mb-3">
+            <label for="psw" class="offset-sm-2 col-sm-3 col-form-label">*Password:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="psw" id="psw"  pattern="^.{8,}$"  required/>
+            <div class="invalid-feedback"></div><br/><br/>
+        </div>
+            </div>   
+
+
+        <div class="row mb-3">
+            <label for="Mconditions" class="offset-sm-2 col-sm-3 col-form-label"> Medical Conditions:</label><br/>
+            <div class="col-sm-6">
+            <input class="col-sm-8" type="text" name="Mconditions" id="Mconditions" value="{{ Mconditions}}" {% if removeReadonly=="" %}readonly{%endif%}/><br/>
+        </div>
+            </div>
+
+
+            <input type="hidden" name="trainerStatus" id="trainerStatus" value="Active" /><br/>
+
+        
+            <div class="row mb-3 offset-sm-5 col-sm-2">
+            <input type="hidden" name="trainerID" id="trainerID" value="None">
+            <button type="submit" name="submit" id="submit" value="None" class="btn btn-dark"/>Create</button><br/>
+            </div>
+        </form>
+
+</div>
+
+{% endblock %}

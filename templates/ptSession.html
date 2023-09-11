@@ -1,0 +1,270 @@
+{% extends "base.html" %} {% block content %}
+<div class="row" style="text-align: center"><h3>Book your PT Session</h3></div>
+<div class="row"><small>***Please login to book availabe session***</small></div>
+<div style="text-align:right">
+  <a href="/ptCalendar"><button class='btn btn-primary'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-week-fill" viewBox="0 0 16 16">
+      <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM9.5 7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm3 0h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+    </svg>
+    Go to PT session Calendar
+  </button></a>
+  </div>
+<hr />
+
+<div class="row justify-content-center">
+  {% for trainer in trainerList%}
+
+  <div class="col-3" style="text-align: center">
+    <a
+      data-bs-toggle="collapse"
+      href="#collapseTimetable{{trainer[0]}}"
+      role="button"
+      aria-expanded="false"
+      aria-controls="collapseTimetable"
+    >
+      <img
+        src="/static/image/trianer/{{trainer[0]}}.png"
+        style="width: 200px; align-items: center"
+      />
+      <p>{{trainer[1]}} {{trainer[2]}}</p>
+    </a>
+  </div>
+  <div class="collapse" id="collapseTimetable{{trainer[0]}}">
+    <div class="card card-body">
+      <div class="row">
+        <table
+          class="table table-bordered align-middle"
+          style="text-align: center"
+        >
+          <thead style="background-color: black; color: white">
+            <tr>
+              {%for weekday in weekDayList%}
+              <th scope="col">{{weekday[1]}}</th>
+              {%endfor%}
+            </tr>
+          </thead>
+          <tbody>
+            {%for timetable in timetableList%} {%if timetable[0]==trainer[0] %}
+            <tr>
+              {%for day in dayHelper%} {%if timetable[4] == day %}
+
+              <td>
+                <div class="row">
+                  <h6>{{timetable[1].strftime('%d %B %Y')}}</h6>
+                </div>
+                <div class="row">
+                  <p>{{timetable[2]}}-{{timetable[3]}}</p>
+                </div>
+               
+                {%if username and memberStatus=="Active" and timetable[5] not in existedSessionList%}
+                <div class="row">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#bookingModal{{trainer[0]}}{{timetable[5]}}"
+                   
+                    
+                  >
+                    Book Session
+                  </button>
+                </div>
+                {%else%}
+                <div class="row">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#bookingModal{{trainer[0]}}{{timetable[5]}}"
+                   disabled
+                    
+                  >
+                    Book Session
+                  </button>
+                </div>
+                {%endif%}
+                <!-- book session payment modal -->
+                <div
+                  class="modal fade"
+                  id="bookingModal{{trainer[0]}}{{timetable[5]}}"
+                  tabindex="-1"
+                  aria-labelledby="bookingModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title fs-5" id="bookingModalLabel">
+                          Confirm Your Session Booking
+                        </h3>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <h6>Trainer: {{trainer[1]}} {{trainer[2]}}</h6>
+                        </div>
+                        <div class="mb-3">
+                          <h6>Date: {{timetable[1].strftime('%d %B %Y')}}</h6>
+                        </div>
+                        <div class="mb-3">
+                          <h6>Time: {{timetable[2]}}~{{timetable[3]}}</h6>
+                        </div>
+                        <div class="mb-3">
+                          <h6>Session Fee: $50</h6>
+                        </div>
+                        <form
+                          action="/bookSession"
+                          method="post"
+                          class="needs-validation"
+                          novalidate
+                        >
+                          <input
+                            name="classID"
+                            value="{{timetable[5]}}"
+                            type="hidden"
+                          />
+                          <div class="mb-3">
+                            <div class="col">
+                              <label for="bankaccount" class="col-form-label"
+                                >Credit Card Number(16 digits):</label
+                              >
+                            </div>
+                            <div class="col">
+                              <input
+                                type="number"
+                                class="form-control bankaccount"
+                             
+                                name="bankaccount"
+                                minlength="16"
+                                min="1000000000000000"
+                                max="9999999999999999"
+                                value=""
+                                required
+                              />
+                              <div class="invalid-feedback">
+                                card number must be 16 digits
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <div class="col">
+                              <label for="bankname" class="col-form-label"
+                                >Card Holder:</label
+                              >
+                            </div>
+                            <div class="col">
+                              <input
+                                type="text"
+                                class="form-control bankname"
+                             
+                                name="bankname"
+                                required
+                              />
+                              <div class="invalid-feedback">
+                                invalid name
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <div class="col">
+                              <label for="bankcvc" class="col-form-label"
+                                >CVC Code(3 or 4 digits):</label
+                              >
+                            </div>
+                            <div class="col">
+                              <input
+                                type="number"
+                                class="form-control bankcvc"
+                           
+                                name="bankcvc"
+                                minlength="3"
+                                min="001"
+                                max="999"
+                                value=""
+                                required
+                              />
+                              <div class="invalid-feedback">
+                                cvc code must be 3 or 4 digits
+                              </div>
+                            </div>
+                            <div class="mb-3">
+                              <div class="col">
+                                <label for="expireMonth" class="col-form-label"
+                                  >Expiry Month:</label
+                                >
+                              </div>
+                              <div class="col">
+                                <input
+                                  type="number"
+                                  class="form-control expireMonth"
+                           
+                                  name="expireMonth"
+                                  minlength="2"
+                                  min="1"
+                                  max="12"
+                                  value=""
+                                  required
+                                />
+                                <div class="invalid-feedback">
+                                  invalid month
+                                </div>
+                              </div>
+                              <div class="mb-3">
+                                <div class="col">
+                                  <label for="expireYear" class="col-form-label"
+                                    >Expiry Year:</label
+                                  >
+                                </div>
+                                <div class="col">
+                                  <input
+                                    type="number"
+                                    class="form-control expireYear"
+                                   
+                                    name="expireYear"
+                                    minlength="4"
+                                    min="2023"
+                                    value=""
+                                    required
+                                  />
+                                  <div class="invalid-feedback">
+                                    invalid year
+                                  </div>
+                                </div>
+                          </div>
+                          <br />
+                          <div class="mb-3">
+                            <div class="col-auto">
+                              <button type="submit" class="btn btn-primary">
+                                Make Payment
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- book session payment modal -->
+
+                
+              </td>
+
+              {%else%}
+              <td>-</td>
+              {%endif%} {%endfor%}
+            </tr>
+            {%endif%} {%endfor%}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+</div>
+
+{% endblock %}

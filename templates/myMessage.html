@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+{%if memberIsReceivingNotifation=="Yes" %}
+<div class="row"><h3>Weekly Update</h3></div>
+<br>
+{%for update in weeklyupdate%}
+<div class="row"><h5>{{update[1]}}</h5></div>
+<hr>
+<div class="row"><p>{{update[2]}}</p></div>
+<div class="row"><p>We appreciate your continued business and are always here to help. </p></div>
+<div class="row"><p>Ngā mihi</p></div>
+<div class="row"><p>The Lincoln Fitness Team</p></div>
+{%endfor%}
+<hr />
+{%endif%}
+<div class="row"><h3>Your Notifications</h3></div>
+<hr />
+<div class="row">
+  <table class="table table-hover">
+    <thead style="background-color: black;color: white;">
+      <tr>
+        <th scope="col">Subject</th>
+        <th scope="col">Message</th>
+        <th scope="col">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {%for message in messageList%}
+      <tr>
+        <td>
+          <span
+          {% if message[0]== 'Refund'%}
+            style="
+              background-color:#ffd166;
+              padding: 10px;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              font-size: 15px;
+            "
+          {% elif message[0]== 'Deduction' or message[0]== 'Subscription Deduction' %}
+          style="
+          background-color:#06d6a0;
+          padding: 10px;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-size: 15px;
+        "
+        {% elif message[0]== 'ClassBooked'%}
+        style="
+        background-color:#118ab2;
+        padding: 10px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 15px;
+      "
+        {% elif message[0]== 'CancelSessionNoRefund' or message[0]== 'CancelClass' or message[0]== 'CancelSubscription' %}
+        style="
+        background-color:#ef476f;
+        padding: 10px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 15px;
+      "
+          {%endif%}
+            >{{message[0]}}
+        </span>
+        </td>    
+        <td>{{message[1]}}</td>
+        <td>{{message[2].strftime('%H:%M:%S on %d %B %Y')}}</td>
+      </tr>
+      {% endfor%}
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}

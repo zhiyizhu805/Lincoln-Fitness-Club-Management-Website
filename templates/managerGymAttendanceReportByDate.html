@@ -1,0 +1,74 @@
+{% extends "admin.html" %} {% block content %}
+
+
+<div class="container userform">
+    <br/>
+    <h1>Member Attendance Report</h1>
+    <br/>
+
+
+    <form action="/admin/checkfinancebydate" method="POST">
+
+        <label for="startdate">Start Date:</label>
+        <input type="date" id="startdate" name="startdate" value="{{ startdate | default('2023-01-01') }}">
+
+        <label for="enddate">End Date:</label>
+        <input type="date" id="enddate" name="enddate" value="{{ enddate | default('2023-12-31') }}">
+
+        <Button type="submit" value="Yes" class="btn btn-outline-dark offset-sm-1 col-sm-1">Submit</button>
+    </form>
+
+    {%if dbresult==[] %}{{message_nodata}}{%endif%}
+
+    {%if dbresult!=[]%}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Type of Visit</th><th>Number of Attendance</th><th>Total Capacity</th><th>Attendance Ratio</th>
+        </tr>
+        </thead>
+    <tbody>
+
+        {%for usage in dbresult_u1%}
+        <tr>
+            <td>{{usage[0]}}</td>
+            <td>{{usage[1]}}</td>
+            <td>{{usage[2]}}</td>
+            <td>{{usage[3]}}</td>
+
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+
+
+        <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Total Member Attended the Gym</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            {%for totalx in dbresult_to%}
+            <tr>
+                <td>{{totalx[0]}}</td>
+
+
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+
+    {%endif%}
+
+
+
+
+    <div class="table-responsive">
+
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+.userform h1{
+    text-align: center;
+}
+.buttons{
+    text-align: center;
+    display: block;
+}
+.buttonToRight{
+    display: block;
+    float: right;
+}
