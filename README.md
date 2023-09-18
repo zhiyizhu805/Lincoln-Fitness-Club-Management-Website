@@ -63,28 +63,8 @@ Once a member is logged in, they can navigate to 'Classes' or 'PT Sessions' on t
 
 <a name="trainercentre"></a>
 
-## 3. Trainer Centre
 
-The gym's trainers may login via the _'/trainer'_ route using their email address and password. A full list of trainers' email addresses and passwords is available in the 'trainer' table created by the SQL file in this repository. However, for ease of reference, the Trainer Centre can be accessed using:
-
-**Email:** clint@lincolnfitness.com
-**Password:** Clint2023
-
-Upon logging in, the trainer will immediately be able to:
-
-- view and edit their personal profile
-- view their timetable
-
-The trainer can also use the navigation bar at the top of the page to select:
-
-![image](https://user-images.githubusercontent.com/100200726/227763367-57892282-b0ed-46fc-9a7e-a61721a0f675.png)
-
-- **My trainees**: this will direct them to a page which provides information regarding all trainees who have an upcoming appointment with the trainer
-- **The email address they used to login**: clicking this will give them the option to log out or reset their password.
-
-<a name="managerscentre"></a>
-
-## 4. Manager's Centre
+## 3. Manager's Centre
 
 The gym's manager can login to the Manager's Centre via the _'/admin'_ route using the following details:
 
@@ -144,7 +124,7 @@ By clicking on 'manager', the manager has the option of logging out.
 
 <a name="installation"></a>
 
-## 5. Installation
+## 4. Installation
 
 Install with pip:
 
@@ -152,7 +132,7 @@ $ pip install -r requirements.txt
 
 <a name="credits"></a>
 
-## 6. Credits
+## 5. Credits
 
 This app has been developed by the following students as part of Lincoln University's COMP639 course:
 
@@ -163,3 +143,15 @@ This app has been developed by the following students as part of Lincoln Univers
 - Zhiyi Zhu (Student ID: 1152455)
 
 Images used in this project were sourced from [Unsplash](https://www.unsplash.com).
+
+## 6. Screenshots
+
+<img src="/static/image/screenshots/01.jpg" width='700'/>
+<img src="/static/image/screenshots/02.jpg" width='700'/>
+<img src="/static/image/screenshots/03.jpg" width='700'/>
+<img src="/static/image/screenshots/04.jpg" width='700'/>
+<img src="/static/image/screenshots/06.jpg" width='700'/>
+<img src="/static/image/screenshots/07.jpg" width='700'/>
+<img src="/static/image/screenshots/08.jpg" width='700'/>
+<img src="/static/image/screenshots/09.jpg" width='700'/>
+
